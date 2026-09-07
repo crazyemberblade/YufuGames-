@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>YufuGames — Game Compatibility Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LANDING PAGE -->
+  <section class="landing-page" id="landingPage">
+    <div class="landing-overlay"></div>
+    <div class="landing-content">
+      <div class="landing-actions">
+        <button class="landing-btn primary" id="enterBtn">ENTER</button>
+        <button class="landing-btn secondary" id="helpBtn">NEED HELP</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APP -->
+  <main id="app" class="app hidden">
+    <header class="navbar">
+      <div class="nav-container">
+        <a class="brand" href="#top" id="brandHome">YufuGames</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+        <nav class="nav-links" id="navLinks">
+          <a href="#checker">Check Phone</a>
+          <a href="#tools">Gaming Tools</a>
+          <a href="#community">Community</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="intro" id="top">
+      <div class="container">
+        <span class="eyebrow">GAME COMPATIBILITY CHECKER</span>
+        <h1>Can your phone run this game?</h1>
+        <p>Enter your game and phone specifications to check compatibility.</p>
+      </div>
+    </section>
+
+    <section class="container main-section" id="checker">
+      <div class="checker-card">
+        <div class="form-grid">
+
+          <div class="field field-full">
+            <label for="gameInput">Search Game</label>
+            <input id="gameInput" list="gameSuggestions"
+              placeholder="Enter game name, e.g. Minecraft" autocomplete="off">
+            <datalist id="gameSuggestions"></datalist>
+            <small id="gameHint" class="field-hint">Choose a game from the local prototype database.</small>
+          </div>
+
+          <div class="field field-full">
+            <label for="phoneInput">Phone Name</label>
+            <input id="phoneInput" placeholder="e.g. realme Narzo 50i">
+          </div>
+
+          <div class="field">
+            <label for="ramInput">RAM</label>
+            <select id="ramInput">
+              <option value="">Select RAM</option>
+              <option value="2">2 GB</option>
+              <option value="3">3 GB</option>
+              <option value="4">4 GB</option>
+              <option value="6">6 GB</option>
+              <option value="8">8 GB</option>
+              <option value="12">12 GB</option>
+              <option value="16">16 GB</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="storageInput">Storage</label>
+            <select id="storageInput">
+              <option value="">Select Storage</option>
+              <option value="32">32 GB</option>
+              <option value="64">64 GB</option>
+              <option value="128">128 GB</option>
+              <option value="256">256 GB</option>
+              <option value="512">512 GB</option>
+              <option value="1024">1 TB</option>
+            </select>
+          </div>
+
+          <div class="field field-full">
+            <label for="chipsetInput">Chipset / Processor</label>
+            <select id="chipsetInput">
+              <option value="">Select chipset</option>
+
+              <optgroup label="QUALCOMM SNAPDRAGON">
+                <option>Snapdragon 4 Gen 2</option><option>Snapdragon 4 Gen 3</option>
+                <option>Snapdragon 6 Gen 1</option><option>Snapdragon 6 Gen 3</option>
+                <option>Snapdragon 7 Gen 1</option><option>Snapdragon 7 Gen 3</option>
+                <option>Snapdragon 7+ Gen 2</option><option>Snapdragon 7+ Gen 3</option>
+                <option>Snapdragon 8 Gen 2</option><option>Snapdragon 8 Gen 3</option>
+                <option>Snapdragon 8 Elite</option><option>Snapdragon 8s Gen 3</option>
+              </optgroup>
+
+              <optgroup label="MEDIATEK DIMENSITY">
+                <option>Dimensity 6100+</option><option>Dimensity 6300</option>
+                <option>Dimensity 7050</option><option>Dimensity 7200</option>
+                <option>Dimensity 7300</option><option>Dimensity 7400</option>
+                <option>Dimensity 8000</option><option>Dimensity 8100</option>
+                <option>Dimensity 8200</option><option>Dimensity 8300</option>
+                <option>Dimensity 9000</option><option>Dimensity 9200</option>
+                <option>Dimensity 9300</option>
+              </optgroup>
+
+              <optgroup label="MEDIATEK HELIO">
+                <option>Helio G85</option><option>Helio G88</option><option>Helio G91</option>
+                <option>Helio G95</option><option>Helio G99</option>
+              </optgroup>
+
+              <optgroup label="SAMSUNG EXYNOS">
+                <option>Exynos 1280</option><option>Exynos 1330</option>
+                <option>Exynos 1380</option><option>Exynos 1480</option>
+                <option>Exynos 1580</option><option>Exynos 2100</option>
+                <option>Exynos 2200</option><option>Exynos 2400</option>
+              </optgroup>
+
+              <optgroup label="GOOGLE TENSOR">
+                <option>Google Tensor</option><option>Tensor G2</option>
+                <option>Tensor G3</option><option>Tensor G4</option>
+              </optgroup>
+
+              <optgroup label="UNISOC">
+                <option>Unisoc T606</option><option>Unisoc T610</option>
+                <option>Unisoc T612</option><option>Unisoc T616</option>
+                <option>Unisoc T618</option><option>Unisoc T620</option>
+                <option>Unisoc T760</option><option>Unisoc T820</option>
+              </optgroup>
+            </select>
+            <small class="field-hint">Most listed modern mobile processors use octa-core CPU designs; compatibility is rated by actual chipset capability rather than the word “octa-core”.</small>
+          </div>
+        </div>
+
+        <button id="checkBtn" class="check-btn">CHECK COMPATIBILITY</button>
+
+        <section class="result-box" aria-live="polite">
+          <div class="result-empty" id="resultEmpty">
+            Your compatibility result will appear here after checking.
+          </div>
+          <div id="resultContent" class="result-content hidden"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="container future-grid">
+      <article class="future-card" id="tools">
+        <span class="eyebrow">COMING LATER</span>
+        <h2>Gaming Tools</h2>
+        <ul><li>Game calculators</li><li>Settings tools</li><li>Other utilities</li></ul>
+      </article>
+      <article class="future-card" id="community">
+        <span class="eyebrow">COMING LATER</span>
+        <h2>Community</h2>
+        <ul><li>Find players</li><li>Discussions</li><li>Guides</li></ul>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div class="container">© <span id="year"></span> YufuGames · Prototype</div>
+    </footer>
+  </main>
+
+  <script src="games.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/*
+  YufuGames local prototype database.
+  Replace this file later with a real database/API without changing the UI.
+  Values are approximate compatibility targets, not official publisher requirements.
+*/
+const GAME_DATABASE = [
+  {name:"Minecraft", minRam:2, recRam:4, minTier:1, recTier:2, storage:2, demand:"light"},
+  {name:"Free Fire", minRam:2, recRam:4, minTier:1, recTier:2, storage:2, demand:"light"},
+  {name:"Free Fire MAX", minRam:3, recRam:4, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"PUBG Mobile", minRam:3, recRam:6, minTier:2, recTier:3, storage:8, demand:"medium"},
+  {name:"BGMI", minRam:4, recRam:6, minTier:2, recTier:3, storage:10, demand:"medium"},
+  {name:"Call of Duty Mobile", minRam:3, recRam:6, minTier:2, recTier:3, storage:8, demand:"medium"},
+  {name:"Call of Duty: Warzone Mobile", minRam:6, recRam:8, minTier:5, recTier:7, storage:15, demand:"very high"},
+  {name:"Genshin Impact", minRam:4, recRam:8, minTier:3, recTier:5, storage:30, demand:"very high"},
+  {name:"Honkai: Star Rail", minRam:4, recRam:8, minTier:3, recTier:5, storage:25, demand:"very high"},
+  {name:"Wuthering Waves", minRam:6, recRam:8, minTier:4, recTier:6, storage:20, demand:"very high"},
+  {name:"Roblox", minRam:2, recRam:4, minTier:1, recTier:2, storage:2, demand:"light"},
+  {name:"Asphalt 9", minRam:3, recRam:6, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"Asphalt Legends Unite", minRam:3, recRam:6, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"GTA: San Andreas", minRam:2, recRam:4, minTier:1, recTier:2, storage:3, demand:"light"},
+  {name:"GTA: Vice City", minRam:2, recRam:3, minTier:1, recTier:1, storage:2, demand:"light"},
+  {name:"eFootball", minRam:3, recRam:4, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"EA SPORTS FC Mobile", minRam:3, recRam:4, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"Mobile Legends: Bang Bang", minRam:2, recRam:4, minTier:1, recTier:2, storage:3, demand:"light"},
+  {name:"League of Legends: Wild Rift", minRam:3, recRam:4, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"Arena Breakout", minRam:4, recRam:6, minTier:3, recTier:5, storage:10, demand:"high"},
+  {name:"Standoff 2", minRam:2, recRam:4, minTier:1, recTier:2, storage:3, demand:"light"},
+  {name:"Brawl Stars", minRam:2, recRam:3, minTier:1, recTier:1, storage:2, demand:"light"},
+  {name:"Clash of Clans", minRam:2, recRam:3, minTier:1, recTier:1, storage:2, demand:"light"},
+  {name:"Clash Royale", minRam:2, recRam:3, minTier:1, recTier:1, storage:2, demand:"light"},
+  {name:"Among Us", minRam:2, recRam:3, minTier:1, recTier:1, storage:1, demand:"light"},
+  {name:"Pokemon UNITE", minRam:3, recRam:4, minTier:2, recTier:3, storage:3, demand:"medium"},
+  {name:"Diablo Immortal", minRam:4, recRam:6, minTier:3, recTier:5, storage:12, demand:"high"},
+  {name:"Black Desert Mobile", minRam:4, recRam:6, minTier:3, recTier:4, storage:8, demand:"high"},
+  {name:"Sky: Children of the Light", minRam:3, recRam:4, minTier:2, recTier:3, storage:3, demand:"medium"},
+  {name:"Dead by Daylight Mobile", minRam:3, recRam:6, minTier:2, recTier:4, storage:6, demand:"high"},
+  {name:"CarX Street", minRam:6, recRam:8, minTier:4, recTier:6, storage:10, demand:"very high"},
+  {name:"Need for Speed No Limits", minRam:3, recRam:4, minTier:2, recTier:3, storage:4, demand:"medium"},
+  {name:"Real Racing 3", minRam:2, recRam:4, minTier:1, recTier:2, storage:4, demand:"medium"},
+  {name:"Modern Combat 5", minRam:2, recRam:4, minTier:1, recTier:2, storage:3, demand:"light"},
+  {name:"Shadow Fight 4: Arena", minRam:3, recRam:4, minTier:2, recTier:3, storage:3, demand:"medium"},
+  {name:"World of Tanks Blitz", minRam:3, recRam:4, minTier:2, recTier:3, storage:5, demand:"medium"},
+  {name:"Fortnite", minRam:4, recRam:8, minTier:4, recTier:6, storage:15, demand:"very high"},
+  {name:"Marvel Snap", minRam:2, recRam:4, minTier:1, recTier:2, storage:3, demand:"light"},
+  {name:"Solo Leveling: ARISE", minRam:4, recRam:8, minTier:3, recTier:5, storage:10, demand:"high"},
+  {name:"LifeAfter", minRam:4, recRam:6, minTier:3, recTier:4, storage:10, demand:"high"}
+];
