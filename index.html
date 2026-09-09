@@ -17,6 +17,45 @@
 
 /* auth modal */.modal{position:fixed;inset:0;background:rgba(15,23,42,.58);z-index:50;display:grid;place-items:center;padding:20px}.modal-card{background:#fff;border-radius:20px;padding:24px;width:min(420px,100%);box-shadow:var(--shadow)}.modal-card h2{margin-top:0}.modal-card p{color:var(--muted);line-height:1.5}.google{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px;font-weight:800;cursor:pointer}.modal-close{margin-top:12px;width:100%;border:0;background:transparent;color:#667085;padding:10px;cursor:pointer}.auth-note{font-size:.78rem;margin-top:10px;color:#98a2b3}
 @media(max-width:720px){.navlinks{display:none;position:absolute;left:16px;right:16px;top:58px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch}.navlinks.open{display:flex}.menu{display:block}.hero-copy{padding-top:42px}.grid,.future,.game-communities{grid-template-columns:1fr}.field.full{grid-column:auto}.result-grid{grid-template-columns:1fr}.card{padding:16px}.landing-brand{top:18px;left:18px}.credit{bottom:74px}.community-page{padding-top:28px}}
+
+/* v6 community layout fix */
+#communityPage,#minecraftPage{background:#07080b;min-height:100vh;color:#f4f6fa}
+#communityPage .nav,#minecraftPage .nav{background:rgba(10,11,15,.96)!important;border-bottom:1px solid #252933!important}
+#communityPage .brand,#minecraftPage .brand{color:#f7f8fb!important}
+#communityPage .community-page,#minecraftPage .mc-page{background:transparent!important}
+.community-page{padding:38px 0 72px!important}
+.community-head{background:linear-gradient(145deg,#171a21,#0c0e13);border:1px solid #2a2e38;border-radius:24px;padding:28px 22px!important;margin-bottom:22px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.community-head h1{color:#f7f8fb}.community-head p{color:#aeb5c0!important}
+.game-communities{gap:18px!important}
+.game-community{border-radius:22px!important;background:#11141a!important}
+.minecraft-page{padding:22px 0 72px!important}
+.mc-layout{display:grid!important;grid-template-columns:1fr!important;gap:18px!important;margin-top:18px!important}
+.mc-layout>div{display:grid;gap:18px}
+.mc-sidebar{display:grid!important;grid-template-columns:1fr!important;gap:18px!important;align-content:start!important}
+.mc-sidebar.hidden{display:none!important}
+.mc-page .card{width:100%;position:static!important;transform:none!important;float:none!important}
+.mc-welcome,.mc-locked,.mc-rules,.mc-sidebar .card{margin:0!important;min-width:0!important}
+.mc-perks{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+.mc-perk{width:100%;padding:14px 15px!important;border-radius:14px!important}
+.mc-locked{text-align:left!important;padding:24px 20px!important}
+.mc-unlock-list{justify-content:flex-start!important}
+.mc-locked .check{max-width:420px}
+.mc-layout.joined-state{grid-template-columns:1fr!important}
+.mc-layout.joined-state .mc-feed{width:100%}
+@media(max-width:760px){
+ body{background:#07080b!important}
+ .container{width:min(100% - 28px,1100px)!important}
+ .community-page{padding-top:24px!important}
+ .community-head{padding:24px 18px!important;border-radius:20px!important}
+ .game-communities{grid-template-columns:1fr!important}
+ .game-icon{height:180px!important}
+ .mc-title-row{display:flex!important;flex-direction:column!important}
+ .mc-actions-top{display:grid!important;grid-template-columns:1fr!important;width:100%!important}
+ .mc-join,.mc-leave{width:100%!important}
+ .mc-feed-head{align-items:flex-start!important;flex-direction:column!important}
+ .mc-create{width:100%!important}
+}
+
 </style>
 </head>
 <body>
@@ -75,7 +114,7 @@ communities.forEach(item=>{const c=document.createElement('article');c.className
 function getPosts(){try{return JSON.parse(localStorage.getItem('yufuMinecraftPosts')||'[]')}catch{return[]}}
 function renderPosts(){const posts=getPosts(),box=$('mcPosts');box.innerHTML='';posts.forEach(post=>{const a=document.createElement('article');a.className='mc-post';a.innerHTML=`<div class="mc-user"><div class="mc-avatar">👤</div><div>Community Member<div class="mc-meta">${new Date(post.time).toLocaleString()}</div></div></div><p><b>${escapeHtml(post.title)}</b><br>${escapeHtml(post.text)}</p>${post.image?`<img class="mc-post-image" src="${post.image}" alt="Community upload">`:''}`;box.appendChild(a)});$('mcEmpty').classList.toggle('hidden',posts.length>0)}
 function escapeHtml(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function updateMinecraftState(){const joined=localStorage.getItem('yufuMinecraftJoined')==='true';$('mcJoinBtn').classList.toggle('hidden',joined);$('mcLeaveBtn').classList.toggle('hidden',!joined);$('mcWelcome').classList.toggle('hidden',joined);$('mcLocked').classList.toggle('hidden',joined);$('mcFeed').classList.toggle('hidden',!joined);if(joined)renderPosts()}
+function updateMinecraftState(){const joined=localStorage.getItem('yufuMinecraftJoined')==='true';$('mcJoinBtn').classList.toggle('hidden',joined);$('mcLeaveBtn').classList.toggle('hidden',!joined);$('mcWelcome').classList.toggle('hidden',joined);$('mcLocked').classList.toggle('hidden',joined);$('mcFeed').classList.toggle('hidden',!joined);document.querySelector('.mc-sidebar').classList.toggle('hidden',joined);document.querySelector('.mc-layout').classList.toggle('joined-state',joined);if(joined)renderPosts()}
 function joinMinecraft(){localStorage.setItem('yufuMinecraftJoined','true');updateMinecraftState()}
 function leaveMinecraft(){if(confirm('Leave the Minecraft Community?')){localStorage.removeItem('yufuMinecraftJoined');$('postForm').classList.add('hidden');updateMinecraftState()}}
 $('mcJoinBtn').onclick=joinMinecraft;$('mcUnlockBtn').onclick=joinMinecraft;$('mcLeaveBtn').onclick=leaveMinecraft;
