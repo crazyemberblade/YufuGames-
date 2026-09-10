@@ -16,3 +16,13 @@ The current sign-in flow is a prototype UI state. For real Google-only authentic
 
 ## GitHub Pages
 Upload all files to repository root, then enable Settings → Pages → Deploy from branch → main / root.
+
+## YufuGames v12 — Player ID Card
+- Adds a highlighted Player ID Card entry on the landing page.
+- Google-signed-in users are sent to the ID Card creation screen if they do not yet have an ID.
+- ID number format: `#441.Og#` (one or more digits + exactly two letters).
+- ID number uniqueness is global through Cloud Firestore; the ID name does not need to be unique.
+- Profile picture is selected from the device gallery and resized before saving.
+
+### Firebase Firestore setup required
+Enable **Cloud Firestore** in the Firebase console and publish the included `firestore.rules`. The website uses the collections `yufuUsers` and `yufuIdNumbers`.
