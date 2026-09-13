@@ -102,6 +102,13 @@
 #bgmiPage .mc-empty{border-color:#344958;background:#0c1014}
 #bgmiPage .mc-form input,#bgmiPage .mc-form textarea{border-color:#30414f}
 </style>
+<style>
+.id-card-link.existing-id{width:64px;height:64px;padding:5px;top:18px;left:auto;right:145px;transform:none;border-radius:50%;border-color:rgba(255,255,255,.7);background:#fff;box-shadow:0 8px 26px rgba(0,0,0,.4)}
+.id-card-link.existing-id .mini-pfp{width:52px;height:52px;font-size:1.2rem}.id-card-link.existing-id .mini-pfp img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.id-card-link.existing-id:hover{transform:translateY(-2px)}
+.post-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.post-dots{border:0;background:transparent;color:#aeb6c2;font-size:1.55rem;line-height:1;padding:4px 8px;cursor:pointer}.post-author{font-size:.95rem}.post-id{color:#f2c14b;font-size:.72rem;font-weight:800;margin-top:2px}.mc-avatar img,.comment-avatar img,.user-detail-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}.post-actions{display:flex;gap:8px;border-top:1px solid #262b33;margin-top:14px;padding-top:10px;flex-wrap:wrap}.post-action{border:1px solid #2d333d;background:#10141a;color:#e9edf2;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:750}.post-action:hover{border-color:#4b5665}.comments-area{border-top:1px solid #252a33;margin-top:10px;padding-top:10px}.comment-row{display:flex;gap:9px;padding:9px 0}.comment-avatar{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;overflow:hidden}.comment-row b{font-size:.82rem}.comment-row small{color:#737d8b;font-size:.66rem}.comment-text{color:#d8dde5;font-size:.82rem;margin:2px 0}.comments-empty{color:#737d8b;font-size:.78rem;padding:8px 0}.comment-compose{display:flex;gap:8px;margin-top:7px}.comment-input{min-width:0;flex:1;border:1px solid #303641;border-radius:999px;background:#0b0e13;color:#fff;padding:10px 13px;outline:none}.comment-send{border:0;border-radius:999px;padding:10px 14px;background:#2563eb;color:#fff;font-weight:800}.community-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:18px}.community-modal-card{width:min(460px,100%);max-height:88vh;overflow:auto;background:#101319;color:#f5f7fa;border:1px solid #303641;border-radius:24px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.55);position:relative}.community-modal-card h3{margin:0 0 15px}.community-modal-x{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#aab2bd;font-size:1.8rem;cursor:pointer}.community-modal-body{display:grid;gap:10px}.community-modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:16px}.modal-input,.modal-textarea{width:100%;border:1px solid #343a44;background:#080b10;color:#fff;border-radius:13px;padding:12px;outline:none}.modal-textarea{min-height:130px;resize:vertical}.post-menu-list{display:grid;gap:8px}.menu-option{width:100%;text-align:left;border:1px solid #2c333d;background:#0c1015;color:#fff;border-radius:13px;padding:13px;cursor:pointer;font-weight:800}.menu-option.danger{color:#ff8585}.user-detail-avatar{width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;margin:auto}.user-detail-name{text-align:center;font-size:1.1rem;font-weight:900}.user-detail-id{text-align:center;color:#f2c14b;font-weight:850}.share-grid{display:grid;grid-template-columns:1fr;gap:9px}.share-btn{border:1px solid #303741;background:#0c1015;color:#fff;border-radius:13px;padding:13px;font-weight:850;cursor:pointer;text-align:left}.share-btn:hover{border-color:#3b82f6}
+@media(max-width:760px){.id-card-link.existing-id{top:10px;right:94px;width:54px;height:54px;padding:4px}.id-card-link.existing-id .mini-pfp{width:44px;height:44px}.post-actions{gap:6px}.post-action{padding:7px 10px;font-size:.78rem}.community-modal{padding:12px}}
+</style>
 </head>
 <body>
 <section class="landing" id="landingPage">
@@ -114,10 +121,10 @@
     <p class="landing-sub">Your Gaming Community</p>
     <div class="landing-actions">
       <button class="land-btn primary" id="signInHeroBtn"><span class="google-mark">G</span><span id="heroActionText">SIGN IN</span><span class="arrow">→</span></button>
-      <button class="land-btn" id="checkDeviceBtn"><span>▣</span><span>CHECK DEVICE</span><span class="arrow">→</span></button>
+      <button class="land-btn" id="checkDeviceBtn"><span>▣</span><span>GAMING TOOLS</span><span class="arrow">→</span></button>
     </div>
-    <button class="id-card-link" id="idCardLandingBtn" type="button" aria-label="Make ID Card">
-      <span class="mini-pfp">👤</span><span class="mini-copy"><small>YUFUGAMES ID</small><b>NAME</b></span><span class="mini-arrow">→</span>
+    <button class="id-card-link" id="idCardLandingBtn" type="button" aria-label="YufuGames ID">
+      <span class="mini-pfp" id="landingPfp">👤</span><span class="mini-copy" id="landingIdCopy"><small>YUFUGAMES ID</small><b>NAME</b></span><span class="mini-arrow" id="landingIdArrow">→</span>
     </button>
   </div>
   <div class="landing-features">
@@ -166,7 +173,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, runTransaction, serverTimestamp, collection, addDoc, updateDoc, deleteDoc, setDoc, getDocs, query, orderBy, onSnapshot, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZi1C8rJV0SMq0Ta3CPeZr5_cfmKrVjoA",
@@ -195,6 +202,10 @@ let signedIn=false;
 let currentUser=null;
 let hasIdCard=false;
 let pendingAfterId='landing';
+let currentProfile=null;
+let editingExistingId=false;
+let communityUnsubs=[];
+const hiddenPostKey='yufuHiddenPosts';
 function updateAuth(){
   const top=$('authBtn'), hero=$('signInHeroBtn'), heroText=$('heroActionText');
   if(!top || !hero) return;
@@ -205,7 +216,10 @@ function updateAuth(){
   }
 }
 function setAuthBusy(busy){const top=$('authBtn');if(top) top.disabled=busy}
-function showOnly(id){['landingPage','app','communityPage','minecraftPage','freefirePage','bgmiPage','idCardPage'].forEach(x=>{const el=$(x);if(el)el.classList.add('hidden')});const target=$(id);if(target)target.classList.remove('hidden');window.scrollTo(0,0)}
+function renderPage(id){['landingPage','app','communityPage','minecraftPage','freefirePage','bgmiPage','idCardPage'].forEach(x=>{const el=$(x);if(el)el.classList.add('hidden')});const target=$(id);if(target)target.classList.remove('hidden');window.scrollTo(0,0)}
+function showOnly(id,push=true){if(push){const current=history.state&&history.state.yufuPage;if(current!==id)history.pushState({yufuPage:id},'',location.href)}renderPage(id)}
+if(!history.state||!history.state.yufuPage) history.replaceState({yufuPage:'landingPage'},'',location.href);
+window.addEventListener('popstate',e=>renderPage((e.state&&e.state.yufuPage)||'landingPage'));
 function openApp(){showOnly('app')}
 function openCommunity(){
   if(!signedIn){pendingAfterId='community';$('authModal').classList.remove('hidden');return}
@@ -214,17 +228,44 @@ function openCommunity(){
 }
 async function loadIdCard(){
   if(!currentUser){hasIdCard=false;return false}
-  try{const snap=await getDoc(doc(db,'yufuUsers',currentUser.uid));hasIdCard=snap.exists() && !!snap.data().idNumber; if(hasIdCard) fillIdPreview(snap.data()); return hasIdCard;}catch(err){console.error('Load ID card:',err);hasIdCard=false;return false}
+  try{const snap=await getDoc(doc(db,'yufuUsers',currentUser.uid));hasIdCard=snap.exists() && !!snap.data().idNumber; currentProfile=snap.exists()?snap.data():null; if(hasIdCard) fillIdPreview(snap.data()); updateLandingId(); return hasIdCard;}catch(err){console.error('Load ID card:',err);hasIdCard=false;currentProfile=null;updateLandingId();return false}
 }
 function openIdCard(){
   showOnly('idCardPage');
   const status=$('idStatus'); if(status) status.textContent='';
   const err=$('idNumberError'); if(err) err.textContent='';
+  editingExistingId=!!hasIdCard;
+  $('idNameInput').value=currentProfile?.name||'';
+  $('idNumberInput').value=currentProfile?.idNumber||'';
+  $('idNumberInput').readOnly=editingExistingId;
+  $('idNumberInput').style.opacity=editingExistingId?'0.58':'1';
+  $('idNumberInput').style.cursor=editingExistingId?'not-allowed':'text';
+  $('idSaveBtn').textContent=editingExistingId?'SAVE CHANGES':'SAVE ID CARD';
+  idPfpData=currentProfile?.pfp||'';
+  $('idPfpPicker').innerHTML=idPfpData?`<img src="${idPfpData}" alt="Profile picture">`:'<span class="pfp-plus">+</span>';
+  $('idPreview').classList.toggle('hidden',!hasIdCard);
 }
 function fillIdPreview(data){
+  currentProfile=data||currentProfile;
   $('idPreviewName').textContent=data.name||''; $('idPreviewNumber').textContent=data.idNumber||'';
-  if(data.pfp){$('idPreviewAvatar').innerHTML=`<img src="${data.pfp}" alt="ID profile">`}
+  $('idPreviewAvatar').innerHTML=data.pfp?`<img src="${data.pfp}" alt="ID profile">`:'👤';
   $('idPreview').classList.remove('hidden');
+  updateLandingId(data);
+}
+function updateLandingId(data=currentProfile){
+  const btn=$('idCardLandingBtn'), p=$('landingPfp'), copy=$('landingIdCopy'), arrow=$('landingIdArrow');
+  if(!btn||!p)return;
+  if(hasIdCard && data){
+    p.innerHTML=data.pfp?`<img src="${data.pfp}" alt="Profile">`:'👤';
+    btn.classList.add('existing-id');
+    if(copy)copy.classList.add('hidden');
+    if(arrow)arrow.classList.add('hidden');
+    btn.setAttribute('aria-label','Edit YufuGames ID profile');
+  }else{
+    p.innerHTML='👤';btn.classList.remove('existing-id');
+    if(copy)copy.classList.remove('hidden');if(arrow)arrow.classList.remove('hidden');
+    btn.setAttribute('aria-label','Make ID Card');
+  }
 }
 async function routeAfterLogin(){
   await loadIdCard();
@@ -274,26 +315,32 @@ $('idSaveBtn').onclick=async()=>{
   const idPattern=/^#[0-9]+\.[A-Za-z]{2}#$/;
   $('idNumberError').textContent=''; $('idStatus').textContent='';
   if(!name){$('idStatus').textContent='Please enter your ID name.';return}
-  if(!idPattern.test(raw)){ $('idNumberError').textContent='Use format like #441.Og# (number + two letters).'; return }
+  if(!editingExistingId && !idPattern.test(raw)){ $('idNumberError').textContent='Use format like #441.Og# (number + two letters).'; return }
+  if(editingExistingId && !raw && currentProfile?.idNumber) return;
   if(!idPfpData){$('idStatus').textContent='Please choose a profile picture.';return}
   const idNumber=raw, normalized=idNumber.toUpperCase(), btn=$('idSaveBtn'); btn.disabled=true; btn.textContent='SAVING…';
   try{
     await runTransaction(db,async tx=>{
-      const idRef=doc(db,'yufuIdNumbers',normalized); const userRef=doc(db,'yufuUsers',currentUser.uid);
-      const taken=await tx.get(idRef); if(taken.exists() && taken.data().uid!==currentUser.uid) throw new Error('USER_ID_ALREADY_TAKEN');
-      tx.set(idRef,{uid:currentUser.uid,idNumber,updatedAt:serverTimestamp()},{merge:true});
-      tx.set(userRef,{uid:currentUser.uid,name,idNumber,pfp:idPfpData,updatedAt:serverTimestamp()},{merge:true});
+      const userRef=doc(db,'yufuUsers',currentUser.uid);
+      if(editingExistingId){
+        tx.set(userRef,{uid:currentUser.uid,name,idNumber:currentProfile.idNumber,pfp:idPfpData||currentProfile.pfp||'',updatedAt:serverTimestamp()},{merge:true});
+      }else{
+        const idRef=doc(db,'yufuIdNumbers',normalized);
+        const taken=await tx.get(idRef); if(taken.exists() && taken.data().uid!==currentUser.uid) throw new Error('USER_ID_ALREADY_TAKEN');
+        tx.set(idRef,{uid:currentUser.uid,idNumber,updatedAt:serverTimestamp()},{merge:true});
+        tx.set(userRef,{uid:currentUser.uid,name,idNumber,pfp:idPfpData,updatedAt:serverTimestamp()},{merge:true});
+      }
     });
-    hasIdCard=true; fillIdPreview({name,idNumber,pfp:idPfpData}); $('idStatus').textContent='ID Card saved successfully.';
+    hasIdCard=true; currentProfile={...(currentProfile||{}),name,idNumber:editingExistingId?currentProfile.idNumber:idNumber,pfp:idPfpData||currentProfile?.pfp||''}; fillIdPreview(currentProfile); $('idStatus').textContent=editingExistingId?'ID profile updated successfully.':'ID Card saved successfully.';
     setTimeout(()=>{if(pendingAfterId==='community'){pendingAfterId='landing';openCommunity()}else{showOnly('landingPage')}},500);
   }catch(err){
     console.error('Save ID card:',err);
     if(err.message==='USER_ID_ALREADY_TAKEN'){$('idNumberError').textContent='user ID already taken';}
     else if(err.code==='permission-denied'){$('idStatus').textContent='Firestore permission is not enabled yet. Add the YufuGames rules, then try again.';}
     else{$('idStatus').textContent='Could not save the ID card. Please try again.';}
-  }finally{btn.disabled=false;btn.textContent='SAVE ID CARD'}
+  }finally{btn.disabled=false;btn.textContent=editingExistingId?'SAVE CHANGES':'SAVE ID CARD'}
 };
-$('backHome').onclick=e=>{e.preventDefault();$('communityPage').classList.add('hidden');$('app').classList.remove('hidden');window.scrollTo(0,0)};$('backToCommunity').onclick=()=>{ $('minecraftPage').classList.add('hidden');$('communityPage').classList.remove('hidden');window.scrollTo(0,0)};$('mcBrand').onclick=e=>{e.preventDefault();$('minecraftPage').classList.add('hidden');$('app').classList.remove('hidden');window.scrollTo(0,0)};
+$('backHome').onclick=e=>{e.preventDefault();showOnly('landingPage')};$('backToCommunity').onclick=()=>showOnly('communityPage');$('mcBrand').onclick=e=>{e.preventDefault();showOnly('landingPage')};
 $('menuBtn').onclick=()=>$('navLinks').classList.toggle('open');document.querySelectorAll('#navLinks a').forEach(a=>a.onclick=()=>$('navLinks').classList.remove('open'));
 $('checkBtn').onclick=()=>{const name=$('gameInput').value.trim(),phone=$('phoneInput').value.trim(),ram=+$('ramInput').value,storage=+$('storageInput').value,chip=$('chipsetInput').value;if(!name||!phone||!ram||!storage||!chip){alert('Please complete all required details.');return}const g=games.find(x=>x.name.toLowerCase()===name.toLowerCase());if(!g){alert('This prototype does not have that game yet. Please choose a listed game.');return}const tier=chipsetTiers[chip]||1;let verdict,cls,reason;if(ram>=g.recRam&&tier>=g.tier&&storage>=64){verdict='SUPPORTED';cls='supported';reason=`The selected RAM and chipset provide an appropriate level of hardware capability for ${g.name}, and the selected storage is suitable for installation and general use.`}else if(ram>=g.minRam&&tier>=Math.max(1,g.tier-1)&&storage>=32){verdict='SUPPORTED WITH LIMITATIONS';cls='limited';reason=`The phone meets the approximate minimum requirement, but RAM or chipset capability is below the recommended level. Expect compromises such as lower graphics settings, heavier loading or reduced stability in demanding situations.`}else{verdict='NOT RECOMMENDED';cls='notrec';reason=`The selected hardware is below the approximate requirement for ${g.name}. RAM and/or chipset capability may cause poor stability or the game may not run well. Storage is also considered in this prototype assessment.`}$('resultEmpty').classList.add('hidden');const r=$('resultContent');r.classList.remove('hidden');r.innerHTML=`<div class="result-grid"><div class="result-item"><b>GAME</b>${g.name}</div><div class="result-item"><b>PHONE</b>${phone}</div><div class="result-item"><b>RAM</b>${ram} GB</div><div class="result-item"><b>STORAGE</b>${storage===1024?'1 TB':storage+' GB'}</div><div class="result-item" style="grid-column:1/-1"><b>CHIPSET</b>${chip}</div></div><div class="verdict ${cls}">RESULT: ${verdict}</div><div class="reason"><b>REASON:</b> ${reason}</div>`;};
 const communities=[
@@ -302,34 +349,39 @@ const communities=[
 {name:'Free Fire',image:'freefire-community.jpg'},
 {name:'Call of Duty'}, {name:'MadOut2'}, {name:'Grand RP Mobile'}];
 const cg=$('communityGrid');
-function openMinecraft(){ $('communityPage').classList.add('hidden');$('minecraftPage').classList.remove('hidden');window.scrollTo(0,0);updateMinecraftState()}
+const mcCfg={prefix:'mc',page:'minecraftPage',storage:'yufuMinecraft',title:'Minecraft',id:'minecraft'};
+function openMinecraft(){ showOnly('minecraftPage');stateFor(mcCfg)}
 communities.forEach(item=>{const c=document.createElement('article');c.className='game-community';const bg=item.image?` style="background-image:url('${item.image}')"`:'';c.innerHTML=`<div class="game-icon"${bg}>${item.name}</div><div class="game-info"><h3>${item.name}</h3><p>Enter community</p></div>`;c.onclick=()=>{if(item.name==='Minecraft'){openMinecraft();return}if(item.name==='Free Fire'){openFreeFire();return}if(item.name==='BGMI'){openBGMI();return}$('roomTitle').textContent=item.name+' Community';$('room').classList.remove('hidden');$('room').scrollIntoView({behavior:'smooth'})};cg.appendChild(c)});
-function getPosts(){try{return JSON.parse(localStorage.getItem('yufuMinecraftPosts')||'[]')}catch{return[]}}
-function renderPosts(){const posts=getPosts(),box=$('mcPosts');box.innerHTML='';posts.forEach(post=>{const a=document.createElement('article');a.className='mc-post';a.innerHTML=`<div class="mc-user"><div class="mc-avatar">👤</div><div>Community Member<div class="mc-meta">${new Date(post.time).toLocaleString()}</div></div></div><p><b>${escapeHtml(post.title)}</b><br>${escapeHtml(post.text)}</p>${post.image?`<img class="mc-post-image" src="${post.image}" alt="Community upload">`:''}`;box.appendChild(a)});$('mcEmpty').classList.toggle('hidden',posts.length>0)}
-function escapeHtml(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function updateMinecraftState(){const joined=localStorage.getItem('yufuMinecraftJoined')==='true';$('mcJoinBtn').classList.toggle('hidden',joined);$('mcLeaveBtn').classList.toggle('hidden',!joined);$('mcWelcome').classList.toggle('hidden',joined);$('mcLocked').classList.toggle('hidden',joined);$('mcFeed').classList.toggle('hidden',!joined);document.querySelector('.mc-sidebar').classList.toggle('hidden',joined);document.querySelector('.mc-layout').classList.toggle('joined-state',joined);if(joined)renderPosts()}
-function joinMinecraft(){localStorage.setItem('yufuMinecraftJoined','true');updateMinecraftState()}
-function leaveMinecraft(){if(confirm('Leave the Minecraft Community?')){localStorage.removeItem('yufuMinecraftJoined');$('postForm').classList.add('hidden');updateMinecraftState()}}
-$('mcJoinBtn').onclick=joinMinecraft;$('mcUnlockBtn').onclick=joinMinecraft;$('mcLeaveBtn').onclick=leaveMinecraft;
-$('createPostBtn').onclick=()=>$('postForm').classList.toggle('hidden');$('cancelPostBtn').onclick=()=>$('postForm').classList.add('hidden');
-$('submitPostBtn').onclick=()=>{const title=$('postTitle').value.trim(),text=$('postText').value.trim(),file=$('postImage').files[0];if(!title&&!text){alert('Write something before publishing.');return}const save=image=>{const posts=getPosts();posts.unshift({title:text?title:'Community Post',text,time:Date.now(),image:image||''});localStorage.setItem('yufuMinecraftPosts',JSON.stringify(posts));$('postTitle').value='';$('postText').value='';$('postImage').value='';$('postForm').classList.add('hidden');renderPosts()};if(file){const r=new FileReader();r.onload=()=>save(r.result);r.readAsDataURL(file)}else save('')};
+function hiddenPosts(){try{return JSON.parse(localStorage.getItem(hiddenPostKey)||'[]')}catch{return[]}}
+function setHiddenPost(postId){const ids=new Set(hiddenPosts());ids.add(postId);localStorage.setItem(hiddenPostKey,JSON.stringify([...ids]))}
+function getProfile(){return currentProfile||{name:currentUser?.displayName||'YufuGames Player',pfp:currentUser?.photoURL||''}}
+function communityRef(communityId){return collection(db,'yufuCommunities',communityId,'posts')}
+function postRef(communityId,postId){return doc(db,'yufuCommunities',communityId,'posts',postId)}
+function commentRef(communityId,postId){return collection(db,'yufuCommunities',communityId,'posts',postId,'comments')}
+function profileAvatar(pfp,cls='mc-avatar'){return pfp?`<div class="${cls}"><img src="${escapeHtml(pfp)}" alt="Profile"></div>`:`<div class="${cls}">👤</div>`}
+function showCommunityModal(title,body,actions=''){let m=$('communityModal');if(!m){m=document.createElement('div');m.id='communityModal';m.className='community-modal hidden';document.body.appendChild(m)}m.innerHTML=`<div class="community-modal-card"><button class="community-modal-x" id="communityModalX">×</button><h3>${escapeHtml(title)}</h3><div class="community-modal-body">${body}</div><div class="community-modal-actions">${actions}</div></div>`;m.classList.remove('hidden');$('communityModalX').onclick=()=>m.classList.add('hidden');return m}
+function closeCommunityModal(){const m=$('communityModal');if(m)m.classList.add('hidden')}
+function formatPostTime(post){const t=post.clientTime||post.time||Date.now();return new Date(t).toLocaleString()}
+async function loadComments(cfg,postId,container){try{const q=query(commentRef(cfg.id,postId),orderBy('clientTime','asc'));const snap=await getDocs(q);container.innerHTML=snap.empty?'<div class="comments-empty">No comments yet.</div>':[...snap.docs].map(d=>{const c=d.data();return `<div class="comment-row">${profileAvatar(c.authorPfp,'comment-avatar')}<div><b>${escapeHtml(c.authorName||'YufuGames User')}</b><div class="comment-text">${escapeHtml(c.text)}</div><small>${new Date(c.clientTime||Date.now()).toLocaleString()}</small></div></div>`}).join('')}catch(err){console.error('Comments:',err);container.innerHTML='<div class="comments-empty">Comments could not be loaded.</div>'}}
+async function addComment(cfg,postId,text){if(!currentUser||!hasIdCard){alert('Please create your YufuGames ID first.');return}const p=getProfile();await addDoc(commentRef(cfg.id,postId),{authorUid:currentUser.uid,authorName:p.name||'YufuGames User',authorPfp:p.pfp||'',text,clientTime:Date.now(),createdAt:serverTimestamp()})}
+async function toggleLike(cfg,post){if(!currentUser)return alert('Please sign in first.');const ref=doc(db,'yufuCommunities',cfg.id,'posts',post.id,'likes',currentUser.uid);const postR=postRef(cfg.id,post.id);await runTransaction(db,async tx=>{const like=await tx.get(ref);if(like.exists()){tx.delete(ref);tx.update(postR,{likesCount:Math.max(0,(post.likesCount||0)-1)})}else{tx.set(ref,{uid:currentUser.uid,createdAt:serverTimestamp()});tx.update(postR,{likesCount:increment(1)})}})}
+async function editPost(cfg,post){const m=showCommunityModal('Edit Post',`<input class="modal-input" id="editTitle" value="${escapeHtml(post.title||'')}" placeholder="Post title"><textarea class="modal-textarea" id="editText" placeholder="Write your post...">${escapeHtml(post.text||'')}</textarea>`, '<button class="mc-cancel" id="editCancel">Cancel</button><button class="mc-submit" id="editSave">Save Changes</button>');$('editCancel').onclick=closeCommunityModal;$('editSave').onclick=async()=>{const title=$('editTitle').value.trim(),text=$('editText').value.trim();if(!title&&!text)return alert('Write something before saving.');$('editSave').disabled=true;try{await updateDoc(postRef(cfg.id,post.id),{title:title||'Community Post',text,updatedAt:serverTimestamp()});closeCommunityModal()}catch(e){alert('Could not edit this post.')}finally{$('editSave')&&($('editSave').disabled=false)}}}
+async function deletePost(cfg,post){if(!confirm('Delete this post?'))return;try{await deleteDoc(postRef(cfg.id,post.id))}catch(e){alert('Could not delete this post.')}}
+function userDetails(post){showCommunityModal('User Details',`${profileAvatar(post.authorPfp,'user-detail-avatar')}<div class="user-detail-name">${escapeHtml(post.authorName||'YufuGames User')}</div><div class="user-detail-id">${escapeHtml(post.authorIdNumber||'ID unavailable')}</div>`,'<button class="mc-cancel" id="detailClose">Close</button>');$('detailClose').onclick=closeCommunityModal}
+function sharePost(cfg,post){const url=location.href.split('#')[0]+`#${cfg.id}-post-${post.id}`;const text=`${post.authorName||'YufuGames User'} on YufuGames: ${post.title||post.text||'Community post'} ${url}`;showCommunityModal('Share Post',`<div class="share-grid"><button class="share-btn" data-share="whatsapp">WhatsApp</button><button class="share-btn" data-share="messenger">Messenger</button><button class="share-btn" data-share="instagram">Instagram DM</button></div>`,'<button class="mc-cancel" id="shareCancel">Close</button>');document.querySelectorAll('[data-share]').forEach(b=>b.onclick=()=>{const type=b.dataset.share; if(type==='whatsapp')window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank'); else if(type==='messenger')window.open('fb-messenger://share/?link='+encodeURIComponent(url),'_blank'); else if(type==='instagram')window.open('instagram://direct-inbox','_blank');});$('shareCancel').onclick=closeCommunityModal}
+function postMenu(cfg,post){const owner=currentUser&&post.authorUid===currentUser.uid;const body=owner?'<button class="menu-option" id="menuEdit">✏️ Edit Post</button><button class="menu-option danger" id="menuDelete">🗑️ Delete Post</button>':'<button class="menu-option" id="menuUser">👤 User Details</button><button class="menu-option" id="menuHide">🙈 Hide Post</button>';const m=showCommunityModal(owner?'Post Settings':'Post Options',`<div class="post-menu-list">${body}</div>`);if(owner){$('menuEdit').onclick=()=>{closeCommunityModal();editPost(cfg,post)};$('menuDelete').onclick=()=>{closeCommunityModal();deletePost(cfg,post)}}else{$('menuUser').onclick=()=>{closeCommunityModal();userDetails(post)};$('menuHide').onclick=()=>{setHiddenPost(post.id);closeCommunityModal();renderCommunity(cfg)}}}
+async function migrateLegacyPosts(cfg){if(!currentUser)return;const key=cfg.storage+'Posts',done=cfg.storage+'MigratedV13';if(localStorage.getItem(done)==='true')return;let old=[];try{old=JSON.parse(localStorage.getItem(key)||'[]')}catch{}if(old.length){const p=getProfile();for(const x of old){await addDoc(communityRef(cfg.id),{authorUid:currentUser.uid,authorName:p.name||'YufuGames User',authorIdNumber:p.idNumber||'',authorPfp:p.pfp||'',title:x.title||'Community Post',text:x.text||'',image:x.image||'',clientTime:x.time||Date.now(),likesCount:0,createdAt:serverTimestamp()})}localStorage.removeItem(key)}localStorage.setItem(done,'true')}
+function postCard(cfg,post){const a=document.createElement('article');a.className='mc-post';a.id=cfg.id+'-post-'+post.id;const owner=currentUser&&post.authorUid===currentUser.uid;const hidden=hiddenPosts().includes(post.id);if(hidden){a.classList.add('hidden');return a}a.innerHTML=`<div class="post-top"><div class="mc-user">${profileAvatar(post.authorPfp)}<div><b class="post-author">${escapeHtml(post.authorName||'YufuGames User')}</b><div class="post-id">${escapeHtml(post.authorIdNumber||'ID unavailable')}</div><div class="mc-meta">${formatPostTime(post)}</div></div></div><button class="post-dots" aria-label="Post settings">⋯</button></div><p><b>${escapeHtml(post.title||'Community Post')}</b><br>${escapeHtml(post.text||'')}</p>${post.image?`<img class="mc-post-image" src="${escapeHtml(post.image)}" alt="Community upload">`:''}<div class="post-actions"><button class="post-action like-btn">♡ <span>${post.likesCount||0}</span></button><button class="post-action comment-toggle">💬 Comment</button><button class="post-action share-btn-main">↗ Share</button></div><div class="comments-area hidden"><div class="comment-list"></div><div class="comment-compose"><input class="comment-input" placeholder="Write a comment..."><button class="comment-send">Send</button></div></div>`;a.querySelector('.post-dots').onclick=()=>postMenu(cfg,post);a.querySelector('.like-btn').onclick=async()=>{try{await toggleLike(cfg,post)}catch(e){alert('Could not update like.')}};a.querySelector('.share-btn-main').onclick=()=>sharePost(cfg,post);const area=a.querySelector('.comments-area');a.querySelector('.comment-toggle').onclick=()=>{area.classList.toggle('hidden');if(!area.classList.contains('hidden'))loadComments(cfg,post.id,a.querySelector('.comment-list'))};a.querySelector('.comment-send').onclick=async()=>{const inp=a.querySelector('.comment-input'),text=inp.value.trim();if(!text)return;try{await addComment(cfg,post.id,text);inp.value='';loadComments(cfg,post.id,a.querySelector('.comment-list'))}catch(e){alert('Could not add comment.')}};return a}
+function renderCommunity(cfg,posts=[]){const box=$(cfg.prefix+'Posts');if(!box)return;box.innerHTML='';let shown=0;posts.forEach(post=>{const a=postCard(cfg,post);if(!a.classList.contains('hidden')){box.appendChild(a);shown++}});$(cfg.prefix+'Empty').classList.toggle('hidden',shown>0)}
+function subscribeCommunity(cfg){communityUnsubs.forEach(fn=>fn());communityUnsubs=[];const q=query(communityRef(cfg.id),orderBy('clientTime','desc'));const unsub=onSnapshot(q,snap=>{const posts=snap.docs.map(d=>({id:d.id,...d.data()}));renderCommunity(cfg,posts)},err=>{console.error('Community feed:',err);const box=$(cfg.prefix+'Posts');if(box)box.innerHTML='<div class="mc-empty">Could not load community posts. Check Firestore rules.</div>'});communityUnsubs.push(unsub)}
+function bindPostSubmit(cfg){const el=id=>$(cfg.prefix+id);el('SubmitBtn').onclick=async()=>{if(!currentUser||!hasIdCard){alert('Please sign in and create your YufuGames ID first.');return}const title=el('PostTitle').value.trim(),text=el('PostText').value.trim(),file=el('PostImage').files[0];if(!title&&!text){alert('Write something before publishing.');return}const p=getProfile(),btn=el('SubmitBtn');btn.disabled=true;btn.textContent='Publishing…';const save=async image=>{await addDoc(communityRef(cfg.id),{authorUid:currentUser.uid,authorName:p.name||'YufuGames User',authorIdNumber:p.idNumber||'',authorPfp:p.pfp||'',title:title||'Community Post',text,image:image||'',clientTime:Date.now(),likesCount:0,createdAt:serverTimestamp()});el('PostTitle').value='';el('PostText').value='';el('PostImage').value='';el('Form').classList.add('hidden')};try{if(file){const r=new FileReader();r.onload=()=>save(r.result).catch(()=>alert('Could not publish this post.'));r.readAsDataURL(file)}else await save('')}catch(e){alert('Could not publish this post.')}finally{btn.disabled=false;btn.textContent='Publish Post'}}}
+function stateFor(cfg){communityUnsubs.forEach(fn=>fn());communityUnsubs=[];const joined=localStorage.getItem(cfg.storage+'Joined')==='true';elToggle(cfg,'JoinBtn',joined);elToggle(cfg,'LeaveBtn',!joined);elToggle(cfg,'Welcome',joined);elToggle(cfg,'Locked',joined);elToggle(cfg,'Feed',!joined);elToggle(cfg,'Sidebar',joined);const feed=$(cfg.prefix+'Feed');if(feed)feed.closest('.mc-layout')?.classList.toggle('joined-state',joined);if(joined){migrateLegacyPosts(cfg).then(()=>subscribeCommunity(cfg));}else{communityUnsubs.forEach(fn=>fn());communityUnsubs=[]}}
+function elToggle(cfg,id,hide){const el=$(cfg.prefix+id);if(el)el.classList.toggle('hidden',hide)}
+function makeCommunity(cfg){const el=id=>$(cfg.prefix+id);function open(){showOnly(cfg.page);stateFor(cfg)}el('Back').onclick=()=>showOnly('communityPage');el('Brand').onclick=e=>{e.preventDefault();showOnly('landingPage')};const join=()=>{if(!signedIn||!hasIdCard){openCommunity();return}localStorage.setItem(cfg.storage+'Joined','true');stateFor(cfg)};el('JoinBtn').onclick=join;el('UnlockBtn').onclick=join;el('LeaveBtn').onclick=()=>{if(confirm('Leave the '+cfg.title+' Community?')){localStorage.removeItem(cfg.storage+'Joined');el('Form').classList.add('hidden');stateFor(cfg)}};el('CreateBtn').onclick=()=>el('Form').classList.toggle('hidden');el('CancelBtn').onclick=()=>el('Form').classList.add('hidden');bindPostSubmit(cfg);return open}
 
-function makeCommunity(cfg){
- const key=cfg.prefix;
- const el=id=>$(key+id);
- function getPosts(){try{return JSON.parse(localStorage.getItem(cfg.storage+'Posts')||'[]')}catch{return[]}}
- function render(){const posts=getPosts(),box=el('Posts');box.innerHTML='';posts.forEach(post=>{const a=document.createElement('article');a.className='mc-post';a.innerHTML=`<div class="mc-user"><div class="mc-avatar">👤</div><div>Community Member<div class="mc-meta">${new Date(post.time).toLocaleString()}</div></div></div><p><b>${escapeHtml(post.title)}</b><br>${escapeHtml(post.text)}</p>${post.image?`<img class="mc-post-image" src="${post.image}" alt="Community upload">`:''}`;box.appendChild(a)});el('Empty').classList.toggle('hidden',posts.length>0)}
- function state(){const joined=localStorage.getItem(cfg.storage+'Joined')==='true';el('JoinBtn').classList.toggle('hidden',joined);el('LeaveBtn').classList.toggle('hidden',!joined);el('Welcome').classList.toggle('hidden',joined);el('Locked').classList.toggle('hidden',joined);el('Feed').classList.toggle('hidden',!joined);el('Sidebar').classList.toggle('hidden',joined);el('Feed').closest('.mc-layout').classList.toggle('joined-state',joined);if(joined)render()}
- function open(){ $('communityPage').classList.add('hidden');$(cfg.page).classList.remove('hidden');$('minecraftPage').classList.add('hidden');window.scrollTo(0,0);state() }
- el('Back').onclick=()=>{$(cfg.page).classList.add('hidden');$('communityPage').classList.remove('hidden');window.scrollTo(0,0)};
- el('Brand').onclick=e=>{e.preventDefault();$(cfg.page).classList.add('hidden');$('app').classList.remove('hidden');window.scrollTo(0,0)};
- const join=()=>{localStorage.setItem(cfg.storage+'Joined','true');state()};el('JoinBtn').onclick=join;el('UnlockBtn').onclick=join;
- el('LeaveBtn').onclick=()=>{if(confirm('Leave the '+cfg.title+' Community?')){localStorage.removeItem(cfg.storage+'Joined');el('Form').classList.add('hidden');state()}};
- el('CreateBtn').onclick=()=>el('Form').classList.toggle('hidden');el('CancelBtn').onclick=()=>el('Form').classList.add('hidden');
- el('SubmitBtn').onclick=()=>{const title=el('PostTitle').value.trim(),text=el('PostText').value.trim(),file=el('PostImage').files[0];if(!title&&!text){alert('Write something before publishing.');return}const save=image=>{const posts=getPosts();posts.unshift({title:title||'Community Post',text,time:Date.now(),image:image||''});localStorage.setItem(cfg.storage+'Posts',JSON.stringify(posts));el('PostTitle').value='';el('PostText').value='';el('PostImage').value='';el('Form').classList.add('hidden');render()};if(file){const r=new FileReader();r.onload=()=>save(r.result);r.readAsDataURL(file)}else save('')};
- return open;
-}
-const openFreeFire=makeCommunity({prefix:'ff',page:'freefirePage',storage:'yufuFreeFire',title:'Free Fire'});
-const openBGMI=makeCommunity({prefix:'bg',page:'bgmiPage',storage:'yufuBGMI',title:'BGMI'});
+(function bindMinecraft(){const el=id=>$('mc'+id);el('Back').onclick=()=>showOnly('communityPage');el('Brand').onclick=e=>{e.preventDefault();showOnly('landingPage')};const join=()=>{if(!signedIn||!hasIdCard){openCommunity();return}localStorage.setItem(mcCfg.storage+'Joined','true');stateFor(mcCfg)};el('JoinBtn').onclick=join;el('UnlockBtn').onclick=join;el('LeaveBtn').onclick=()=>{if(confirm('Leave the Minecraft Community?')){localStorage.removeItem(mcCfg.storage+'Joined');el('Form').classList.add('hidden');stateFor(mcCfg)}};el('CreateBtn').onclick=()=>el('Form').classList.toggle('hidden');el('CancelBtn').onclick=()=>el('Form').classList.add('hidden');bindPostSubmit(mcCfg)})();
+const openFreeFire=makeCommunity({prefix:'ff',page:'freefirePage',storage:'yufuFreeFire',title:'Free Fire',id:'freefire'});
+const openBGMI=makeCommunity({prefix:'bg',page:'bgmiPage',storage:'yufuBGMI',title:'BGMI',id:'bgmi'});
+
 $('year').textContent=new Date().getFullYear();
 </script></body></html>
